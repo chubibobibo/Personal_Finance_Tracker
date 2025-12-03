@@ -44,6 +44,8 @@ class CSV:
 
 # Test creating a reading/initializing a csv file
 CSV.initialize_csv()
-CSV.add_entry('12/12/25', 63, 'debit', 'test description')
+CSV.add_entry('10/12/24', 63, 'debit', 'test description')
+CSV.add_entry('11/12/24', 63, 'credit', 'test description')
+CSV.add_entry('12/12/24', 63, 'debit', 'test description')
             
 
