@@ -2,13 +2,17 @@
 
 from datetime import datetime
 
+# CATEGORIES = dict that will serve as a check for the input in category fn.
+CATEGORIES = {
+    'I': 'Income',
+    'E': 'Expenses'
+}
+
 # prompt = serves as the input for the user before asking for date. This will allow this fn to be dynamic
 
 # allow_default = used to input current date if user does not input a date.
 def get_date(prompt, allow_default = False):
-    date_str = input(prompt) # Takes the value of date_str from the argument passed as prompt
-    # print(isinstance(date_str, str))
-    print(date_str)
+    date_str = prompt
     if allow_default and not date_str: # user did not enter date
         converted_date = datetime.today().strftime("%d-%m-%Y")
         print(f'Date today: {converted_date}')
@@ -23,20 +27,35 @@ def get_date(prompt, allow_default = False):
         print('Entered date is not valid. Format should be: dd/mm/YYYY') 
         print(err) 
         #recursive function to call if invalid date
-        # prompt = input('Enter a correct date: ')
+        prompt = input('Enter a valid date: ')
         return get_date(prompt, allow_default)
         
 
 def get_amount():
-    pass
+    try:
+        amount = float(input('Enter amount: '))
+        if amount <= 0:
+            raise ValueError('Amount cannot be less than or 0.')
+        return f'You entered: {amount:.2f}' # display float with 2 decimal places
+    except ValueError as err:
+        print('Amount must be greater than 0')
+        return get_amount()
+
 
 def category():
-    pass
+    category = input('Enter "I" form income or "E" for expense: ').upper()
+    if category in CATEGORIES:
+        return CATEGORIES[category]
+    print('Not a valid category. Enter "I" for Income or "E" for Expense')
+    return category()
 
 def get_description():
-    pass
+    return input('Enter your description (optional): ')
 
 # get_date('')
-get_date('haha')
+# get_date('12-12-1212')
+# print(get_amount())
+# print(category())
+# get_description()
 
 

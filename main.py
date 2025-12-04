@@ -1,6 +1,7 @@
 import pandas as pd
 import csv #allows to load csv file that serves as a database.
 from datetime import datetime
+from data_entry import get_date, get_amount, get_description
 
 # allows to work easily for csv file
 class CSV:
@@ -42,10 +43,22 @@ class CSV:
         print('Entry added successfully')
 
 
+def add():
+    # initialize csv file using the classmethod initialize_csv
+    CSV.initialize_csv()
+    response = input('Enter the date of the transaction (dd-mm-yyyy): ')
+    get_date(response)
+
+
+
+
 # Test creating a reading/initializing a csv file
-CSV.initialize_csv()
-CSV.add_entry('10/12/24', 63, 'debit', 'test description')
-CSV.add_entry('11/12/24', 63, 'credit', 'test description')
-CSV.add_entry('12/12/24', 63, 'debit', 'test description')
+# CSV.initialize_csv()
+# CSV.add_entry('10/12/24', 63, 'debit', 'test description')
+# CSV.add_entry('11/12/24', 63, 'credit', 'test description')
+# CSV.add_entry('12/12/24', 63, 'debit', 'test description')
+# get_date('12-12-1212')
+
+add()
             
 
