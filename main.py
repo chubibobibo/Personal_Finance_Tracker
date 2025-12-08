@@ -1,7 +1,7 @@
 import pandas as pd
 import csv #allows to load csv file that serves as a database.
 from datetime import datetime
-from data_entry import get_date, get_amount, get_description
+from data_entry import get_date, get_amount, get_description, category
 
 # allows to work easily for csv file
 class CSV:
@@ -42,12 +42,33 @@ class CSV:
             writer.writerow(new_entry)
         print('Entry added successfully')
 
+    @classmethod
+    def get_transactions(cls,start_date, end_date):
+        # read csv_file
+        df = pd.read_csv(cls.CSV_FILE)
+        #convert date columns in the csv file to date-time objects
+        df['date'] = pd.to_datetime(df['date'], format = '%d-%m-%Y')
+        # convert date input to a valid date time
+        start_date = datetime.strptime(start_date, '%d-%m-%Y')
+        end_date = datetime.strptime(end_date, '%d-%m-%Y')
+        # mask = query
+        mask = (df['date'] >= start_date) & (df['date'] <= end_date)
+        filtered_date = df.loc[mask]
+        print(filtered_date.to_string(index=False, formatters={'date': lambda x: x.strftime('%d-%m-%Y')}))
+
+
 
 def add():
     # initialize csv file using the classmethod initialize_csv
     CSV.initialize_csv()
-    response = input('Enter the date of the transaction (dd-mm-yyyy): ')
-    get_date(response)
+    response_date = input('Enter the date of the transaction (dd-mm-yyyy): ')
+    input_date = get_date(response_date, allow_default=True)
+    input_amount = amount = get_amount()
+    print(amount)
+    input_category = category()
+    input_description = get_description()
+    CSV.add_entry(input_date, input_amount, input_category, input_description)
+
 
 
 
@@ -59,6 +80,8 @@ def add():
 # CSV.add_entry('12/12/24', 63, 'debit', 'test description')
 # get_date('12-12-1212')
 
-add()
+# add()
+print(CSV.get_transactions( '03-11-2025', '08-12-2025'))
+
             
 

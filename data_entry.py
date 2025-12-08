@@ -14,6 +14,8 @@ CATEGORIES = {
 def get_date(prompt, allow_default = False):
     date_str = prompt
     if allow_default and not date_str: # user did not enter date
+        # create a date as current date. 
+        # strftime =  formats str to datetime
         converted_date = datetime.today().strftime("%d-%m-%Y")
         print(f'Date today: {converted_date}')
         return converted_date
@@ -37,7 +39,7 @@ def get_amount():
         if amount <= 0:
             raise ValueError('Amount cannot be less than or 0.')
         return f'You entered: {amount:.2f}' # display float with 2 decimal places
-    except ValueError as err:
+    except ValueError:
         print('Amount must be greater than 0')
         return get_amount()
 
@@ -45,8 +47,13 @@ def get_amount():
 def category():
     category = input('Enter "I" form income or "E" for expense: ').upper()
     if category in CATEGORIES:
+        if category == 'I':
+            print(f'Selected {CATEGORIES[category]}' )
+        elif category == 'E':
+            print(f'Selected {CATEGORIES[category]}' )
         return CATEGORIES[category]
     print('Not a valid category. Enter "I" for Income or "E" for Expense')
+    # recursive function to call the fn in case of error.
     return category()
 
 def get_description():
