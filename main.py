@@ -76,7 +76,7 @@ class CSV:
 
 
 
-
+is_running = True
 def add():
     # initialize csv file using the classmethod initialize_csv
     CSV.initialize_csv()
@@ -87,6 +87,33 @@ def add():
     input_category = category()
     input_description = get_description()
     CSV.add_entry(input_date, input_amount, input_category, input_description)
+
+
+def main():
+    while is_running == True:
+        print('**********************')
+        print('Select your transaction type')
+        print('1. Add Transaction')
+        print('2.View transactions and summary withing date range')
+        print('1. Exit')
+        print('**********************')
+
+        choice = input('Select your transaction type: ')
+        if choice == '1':
+            add()
+        elif choice == '2':
+            start_date = input('Enter your start date: ')
+            end_date = input('Enter your end date: ')
+            CSV.get_transactions(start_date, end_date)
+        elif choice == '3':
+            print('Thank you for using the app')
+            break
+        else:
+            print('Invalid choice')
+
+if __name__ == '__main__':
+    main()
+
 
 
 
