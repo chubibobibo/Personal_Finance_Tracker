@@ -38,7 +38,7 @@ def get_amount():
         amount = float(input('Enter amount: '))
         if amount <= 0:
             raise ValueError('Amount cannot be less than or 0.')
-        return f'You entered: {amount:.2f}' # display float with 2 decimal places
+        return f'{amount:.2f}' # display float with 2 decimal places
     except ValueError:
         print('Amount must be greater than 0')
         return get_amount()

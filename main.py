@@ -46,15 +46,34 @@ class CSV:
     def get_transactions(cls,start_date, end_date):
         # read csv_file
         df = pd.read_csv(cls.CSV_FILE)
-        #convert date columns in the csv file to date-time objects
+        #convert date columns in the csv file to date-time objects that will allow us to query it
         df['date'] = pd.to_datetime(df['date'], format = '%d-%m-%Y')
-        # convert date input to a valid date time
+        # parse the text input and convert date input to a valid date time
         start_date = datetime.strptime(start_date, '%d-%m-%Y')
         end_date = datetime.strptime(end_date, '%d-%m-%Y')
-        # mask = query
+        # mask = querying the different rows with a start and end date
         mask = (df['date'] >= start_date) & (df['date'] <= end_date)
-        filtered_date = df.loc[mask]
-        print(filtered_date.to_string(index=False, formatters={'date': lambda x: x.strftime('%d-%m-%Y')}))
+        # df.loc = selects rows and columns not by position but by labels
+        filtered_date = df.loc[mask] # returns a new data frame that contains row where mask is applied
+
+        if filtered_date.empty:
+            print('There are no results')
+        else:
+            print(f'Transactions from {start_date.strftime('%d-%m-%Y')} to {end_date.strftime("%d-%m-%Y")}')
+            # formatters = specify specific columns to format
+            # lambda function to format all elements inside the filtered column
+            print(filtered_date.to_string(index=False, formatters={'date': lambda x: x.strftime('%d-%m-%Y')}))
+
+            # find the total income
+            # filter category having category as "Income". second query "amount" should wrap around the first query/mask
+            # sum() to total all elements in the column.
+            total_income = filtered_date[filtered_date['category'] == 'Income']['amount'].sum()
+            total_expense = filtered_date[filtered_date['category'] == 'Expense']['amount'].sum()
+            print('\nSummary:')
+            print(f'Total Income: {total_income}')
+            print(f'Total Expense: {total_expense}')
+        return filtered_date
+
 
 
 

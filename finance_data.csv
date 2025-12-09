@@ -1,7 +1,5 @@
 date,amount,category,description
-08-12-2025,You entered: 100.00,Income,hello
-04-12-2025,You entered: 150.00,Income,hello213
-02-10-2025,You entered: 150.00,Income,hello3143
-08-12-2025,You entered: 230.00,Income,this is another income
-01-12-2024,You entered: 890.00,Expenses,another expense
-03-11-2025,You entered: 100.00,Income,testing
+
+08-12-2025,100.00,Income,hello
+09-12-2025,400.00,Expenses,this is an expense
+08-12-2025,540.00,Income,hello
