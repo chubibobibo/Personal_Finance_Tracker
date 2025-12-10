@@ -2,6 +2,7 @@ import pandas as pd
 import csv #allows to load csv file that serves as a database.
 from datetime import datetime
 from data_entry import get_date, get_amount, get_description, category
+import matplotlib.pyplot as plt
 
 # allows to work easily for csv file
 class CSV:
@@ -68,12 +69,32 @@ class CSV:
             # filter category having category as "Income". second query "amount" should wrap around the first query/mask
             # sum() to total all elements in the column.
             total_income = filtered_date[filtered_date['category'] == 'Income']['amount'].sum()
-            total_expense = filtered_date[filtered_date['category'] == 'Expense']['amount'].sum()
+            total_expenses = filtered_date[filtered_date['category'] == 'Expenses']['amount'].sum()
             print('\nSummary:')
             print(f'Total Income: {total_income}')
-            print(f'Total Expense: {total_expense}')
+            print(f'Total Expenses: {total_expenses}')
         return filtered_date
 
+# accepts a dataframe
+def plot_transaction(df):
+    # set_index allows to manipulate rows (in this case the 'date')
+    df.set_index('date', inplace=True)
+    # create dataframes for income and expense
+    # add more rows for missing dates or amounts that are 0 (this is for plotting)
+    # resampling fills up the dates that are empty
+    income_df = df[df['category'] == 'Income'].resample('D').sum().reindex(df.index, fill_value=0)
+    expenses_df = df[df['category'] == 'Expenses'].resample('D').sum().reindex(df.index, fill_value=0)
+
+    #create a plot
+    plt.figure(figsize=(10,5))
+    plt.plot(income_df.index, income_df['amount'], label = 'Income' , color='g')
+    plt.plot(expenses_df.index, expenses_df['amount'], label = 'Expenses' , color='r')
+    plt.xlabel('Date')
+    plt.ylabel('Amount')
+    plt.title('Income and Expenses Over Time')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
 
 
 is_running = True
@@ -94,8 +115,8 @@ def main():
         print('**********************')
         print('Select your transaction type')
         print('1. Add Transaction')
-        print('2.View transactions and summary withing date range')
-        print('1. Exit')
+        print('2.View transactions and summary within date range')
+        print('3. Exit')
         print('**********************')
 
         choice = input('Select your transaction type: ')
@@ -104,7 +125,11 @@ def main():
         elif choice == '2':
             start_date = input('Enter your start date: ')
             end_date = input('Enter your end date: ')
-            CSV.get_transactions(start_date, end_date)
+            df = CSV.get_transactions(start_date, end_date)
+            if input('Do you want to see a plot? y/n').lower() == 'y':
+                plot_transaction(df)
+
+
         elif choice == '3':
             print('Thank you for using the app')
             break
@@ -119,15 +144,9 @@ if __name__ == '__main__':
 
 
 
-# Test creating a reading/initializing a csv file
-# CSV.initialize_csv()
-# CSV.add_entry('10/12/24', 63, 'debit', 'test description')
-# CSV.add_entry('11/12/24', 63, 'credit', 'test description')
-# CSV.add_entry('12/12/24', 63, 'debit', 'test description')
-# get_date('12-12-1212')
 
-# add()
-print(CSV.get_transactions( '03-11-2025', '08-12-2025'))
+
+
 
             
 

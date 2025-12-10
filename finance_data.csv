@@ -1,6 +1,21 @@
 date,amount,category,description
-
-08-12-2025,100.00,Income,hello
-09-12-2025,400.00,Expenses,this is an expense
-08-12-2025,540.00,Income,hello
-04-12-2025,610.00,Expenses,sample
+01-12-2025,150.00,Income,freelance payment
+02-12-2025,75.25,Expenses,grocery shopping
+03-12-2025,320.50,Expenses,utility bill
+04-12-2025,980.00,Income,salary bonus
+05-12-2025,45.90,Expenses,coffee and snacks
+05-12-2025,260.00,Expenses,monthly subscription
+06-12-2025,720.00,Income,project invoice
+06-12-2025,88.40,Expenses,fuel refill
+07-12-2025,560.00,Income,consulting fee
+07-12-2025,39.99,Expenses,online purchase
+08-12-2025,112.30,Expenses,transportation
+09-12-2025,890.00,Income,bonus payout
+10-12-2025,23.50,Expenses,stationery
+10-12-2025,450.00,Expenses,medical bill
+11-12-2025,760.00,Income,service payment
+11-12-2025,59.70,Expenses,restaurant dinner
+12-12-2025,300.00,Income,refund processed
+12-12-2025,140.75,Expenses,household supplies
+13-12-2025,1020.00,Income,client payment
+13-12-2025,64.20,Expenses,parking fees
